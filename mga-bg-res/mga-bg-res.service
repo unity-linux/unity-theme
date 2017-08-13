@@ -1,0 +1,9 @@
+[Unit]
+Description=Adapt Mageia theme to the monitor resolution
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/mga-bg-res
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,179 @@
+%define theme   Default
+%define scriptdir %{_datadir}/bootsplash/scripts
+%define mga_bg  %{_datadir}/mga/backgrounds
+%define _vendor unity
+
+Name:           unity-theme
+Version:        @THEMEVER@.@RELEASE@
+Release:        %mkrel 1
+Summary:        %{_vendor} theme for plymouth and desktop background
+Group:          Graphics/Utilities
+License:        GPL and CC BY-SA 3.0
+URL:            http://gitweb.mageia.org/software/design/theme
+Source0:        %{name}-%{version}.tar.xz
+Source100:      glib2-branding.gschema.override.in
+BuildArch:      noarch
+
+Requires(preun): bootsplash
+Requires(preun): rpm-helper >= %{rpmhelper_required_version}
+Requires(posttrans): rpm-helper >= %{rpmhelper_required_version}
+# Required for mga-bg-res
+Requires:       monitor-edid
+Requires:       plymouth-plugin-script
+Requires:       plymouth-system-theme
+Recommends:     mageia-theme-screensavers
+Provides:       plymouth(system-theme)
+
+# (akien) Obsolete those for Mageia 6 when making mageia-theme monolithic
+# The split was not really useful, and making the spec very hard to read
+Obsoletes:      mageia-theme-common < 6.0-1
+Obsoletes:      mageia-theme-Default < 6.0-1
+Provides:       mageia-theme-Default = %{version}-%{release}
+# Transitional package to fix obsoletes mageia-theme-Default had
+Requires:       mageia-theme-Default
+Obsoletes:      mageia-theme-kde-background < 6.0-1
+Provides:       mageia-theme-kde-background = %{version}-%{release}
+Obsoletes:      mageia-theme-gnome < 6.0-1
+Provides:       mageia-theme-gnome = %{version}-%{release}
+Conflicts:      plymouth < 0.9.2-7.mga6
+
+%description
+This package contains the %{_vendor} plymouth theme and desktop background
+image with sizes and configuration for different resolutions.
+
+The signature background was chosen among high quality submissions from the
+%{_vendor} community for the %{_vendor} %{distro_release} artwork contest.
+
+%package screensavers
+Summary:        %{_vendor} screensavers collection
+License:        CC BY-SA 3.0
+Obsoletes:      mageia-theme-screensaver < 6.0-1
+Obsoletes:      mageia-theme-Default-screensaver < 6.0-1
+Provides:       mageia-theme-screensaver = %{version}-%{release}
+Provides:       mageia-theme-Default-screensaver = %{version}-%{release}
+
+%description screensavers
+This package contains the screensavers associated with the %{_vendor} theme.
+
+They are a collection of high-quality photographs under libre licenses
+taken by members of the %{_vendor} community.
+
+%package extra
+Summary:        Additional backgrounds from %{_vendor} users
+
+%description extra
+This package contains extra backgrounds to supplement the default selection.
+Those images were other submissions to the %{_vendor} %{distro_release} artwork contest.
+
+%package Default
+Summary:        Transitional (empty) package
+Conflicts:      mageia-theme-Default < 6.0-1
+
+%description Default
+Transitional (empty) package.
+
+%prep
+%setup -q -n %{gitname}-%{version}
+cp -a %{SOURCE100} glib2-branding.gschema.override.in
+
+
+%build
+sed "s,@@WALLPAPER_URI@@,file:///usr/share/mga/backgrounds/default.png," \
+  glib2-branding.gschema.override.in > glib2-branding.gschema.override
+
+
+%install
+%make_install
+
+# Kept for compatibility after default.jpg -> default.png rename
+ln -sf default.png %{buildroot}%{_datadir}/mga/backgrounds/default.jpg
+
+# KDE metadata
+install -d %{buildroot}%{_datadir}/wallpapers/%{_vendor}/contents/images
+pushd %{buildroot}%{_datadir}/wallpapers/%{_vendor}/contents/images
+for i in "1024x600" "1280x768" "1280x1024" "1600x1200" "3840x2160" "1920x1200"; do
+  ln -s %{mga_bg}/%{_vendor}-%{theme}-$i.png $i.png
+done
+popd
+
+cat > %{buildroot}%{_datadir}/wallpapers/%{_vendor}/metadata.desktop << EOF
+[Desktop Entry]
+Name=%{_vendor}
+X-KDE-PluginInfo-Name=%{_vendor}
+X-KDE-PluginInfo-Author=Mageia Artwork Team
+X-KDE-PluginInfo-Email=atelier@ml.mageia.org
+X-KDE-PluginInfo-License=GPL
+EOF
+
+# GNOME metadata
+install -d %{buildroot}%{_datadir}/gnome-background-properties
+for i in "1024x600" "1280x768" "1280x1024" "1600x1200" "3840x2160" "1920x1200"; do
+cat > %{buildroot}%{_datadir}/gnome-background-properties/%{_vendor}-%{theme}-$i.xml << EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+	<wallpaper deleted="false">
+		<name>%{theme} Mageia Background</name>
+		<filename>%{_datadir}/wallpapers/%{_vendor}/contents/images/$i.png</filename>
+		<options>zoom</options>
+		<shade_type>solid</shade_type>
+		<pcolor>#66ba00</pcolor>
+	</wallpaper>
+</wallpapers>
+EOF
+done
+
+install -d %{buildroot}%{_datadir}/glib-2.0/schemas
+install -m644 glib2-branding.gschema.override %{buildroot}%{_datadir}/glib-2.0/schemas/
+
+
+# Use posttrans as post is run before old package is removed, and we may select a resolution
+# which then gets removed.
+%posttrans
+if [ -z "$DURING_INSTALL" ]; then
+  if [ -x %{scriptdir}/switch-themes ]; then
+    %{scriptdir}/switch-themes %{_vendor}-%{theme}
+  fi
+else
+  if [ -f %{_sysconfdir}/sysconfig/bootsplash ]; then
+    perl -pi -e 's/^\s*SPLASH=.*/SPLASH=auto/; s/^\s*THEME=.*/THEME=%{_vendor}-%{theme}/' %{_sysconfdir}/sysconfig/bootsplash
+  fi
+  %{_sbindir}/plymouth-set-default-theme %{_vendor}-%{theme}
+fi
+%_post_service mga-bg-res
+# plymouth-set-default-theme defaults to 4:3 on update so fix it
+%{_libexecdir}/mga-bg-res > /dev/null 2>&1
+
+%preun
+if [ "$1" == "0" ]; then
+  if [ -x %{scriptdir}/remove-theme ]; then
+    %{scriptdir}/remove-theme %{_vendor}-%{theme}
+  fi
+  for symlink in default.jpg default.png; do
+    link=`readlink %{mga_bg}/$symlink`
+    slink=${link%%-*}
+    if [ "$slink" == "%{_vendor}-%{theme}" ]; then rm -f %{mga_bg}/$symlink; fi
+  done
+fi
+%_preun_service mga-bg-res
+
+%files
+%{mga_bg}/%{_vendor}-%{theme}*.png
+%{mga_bg}/default.jpg
+%{_datadir}/gfxboot/themes/%{_vendor}-%{theme}/
+%{_datadir}/glib-2.0/schemas/glib2-branding.gschema.override
+%{_datadir}/gnome-background-properties/%{_vendor}-%{theme}-*.xml
+%{_datadir}/plymouth/themes/%{_vendor}-%{theme}/
+%{_datadir}/wallpapers/%{_vendor}/
+%{_libexecdir}/mga-bg-res
+%{_unitdir}/mga-bg-res.service
+
+%files screensavers
+%dir %{_datadir}/mga/screensaver
+%{_datadir}/mga/screensaver/*-*.jpg
+
+%files extra
+%{mga_bg}/%{_vendor}-%{theme}-{4,5}.jpg
+%{mga_bg}/Extra-Background*.jpg
+
+%files Default

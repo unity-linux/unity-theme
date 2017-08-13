@@ -1,0 +1,37 @@
+git version (follows mageia-theme versioning and releases):
+- Merge versioning back into that of mageia-theme
+- Fix 16:9 reference resolution for Mageia 6 artwork (3840x2160)
+- Use monitor-edid directly instead of monitor-probe, as the latter falls
+  back to monitor-probe-using-X which is broken (mga#15896)
+- Make sure to default to 4:3 aspect ratio if monitor-edid fails (previous
+  fix was incomplete)
+- Fix exit value when symlink is already correct
+
+Version 0.7 (2015-05-02):
+- Make mga-bg-res a systemd service
+- Uses monitor-probe to find the optimal resolution when X is not yet started
+- Handle cases where monitor-probe fails by defaulting to 4:3 aspect ratio
+- Package mga-bg-res directly in mageia-theme
+
+Version 0.6 (2015-04-22):
+- xinit script: Work also when default.jpg symlink is missing
+
+Version 0.5 (2015-03-05):
+- xinit script: Adapt list of available resolutions to the new set.
+
+Version 0.4 (2015-03-05):
+- xinit script: Handle resolutions that are not directly provided
+  in mageia-theme but have the same aspect ratio as provided images
+  o Nothing is done is the symlink is already correct
+  o Calculate aspect ratio for input resolution and link to the provided
+    picture with the nearest aspect ratio (±0.025).
+
+Version 0.3 (2015-02-13):
+- Add support for any screen resolution that fits an aspect ratio
+  provided in mageia-theme (Akien)
+
+Version 0.2 (2015-02-08):
+- Bugfix: Do not ship binary instead of the source (AL13N)
+
+Version 0.1 (2015-02-08):
+- Initial version as workaround to mga#763 (AL13N)
