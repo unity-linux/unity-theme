@@ -5,7 +5,7 @@
 
 Name:           unity-theme
 Version:        @THEMEVER@.@RELEASE@
-Release:        %mkrel 1
+Release:        1%{?dist}
 Summary:        %{_vendor} theme for plymouth and desktop background
 Group:          Graphics/Utilities
 License:        GPL and CC BY-SA 3.0
@@ -21,13 +21,14 @@ Requires(posttrans): rpm-helper >= %{rpmhelper_required_version}
 Requires:       monitor-edid
 Requires:       plymouth-plugin-script
 Requires:       plymouth-system-theme
-Recommends:     mageia-theme-screensavers
+Recommends:     unity-theme-screensavers
 Provides:       plymouth(system-theme)
 
 # (akien) Obsolete those for Mageia 6 when making mageia-theme monolithic
 # The split was not really useful, and making the spec very hard to read
 Obsoletes:      mageia-theme-common < 6.0-1
 Obsoletes:      mageia-theme-Default < 6.0-1
+Provides:	mageia-theme
 Provides:       mageia-theme-Default = %{version}-%{release}
 # Transitional package to fix obsoletes mageia-theme-Default had
 Requires:       mageia-theme-Default

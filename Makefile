@@ -12,6 +12,9 @@ libexecdir=/usr/libexec
 sharedir=/usr/share
 unitdir=/usr/lib/systemd/system
 RPMBUILD=$(shell which rpmbuild)
+CAT=$(shell which cat)
+SED=$(shell which sed)
+RM=$(shell which rm)
 
 all:
 
@@ -39,15 +42,15 @@ install:
 
 
 $(NAME).spec: $(NAME).spec.in
-        @$(CAT) $(NAME).spec.in | \
-                $(SED) -e 's,@THEMEVER@,$(THEMEVER),g' | \
-                $(SED) -e 's,@RELEASE@,$(RELEASE),g'  \
-                        >$(NAME).spec
-        @echo
-        @echo "$(NAME).spec generated in $$PWD"
-        @echo
+	@$(CAT) $(NAME).spec.in | \
+		$(SED) -e 's,@THEMEVER@,$(THEMEVER),g' | \
+		$(SED) -e 's,@RELEASE@,$(RELEASE),g'  \
+			>$(NAME).spec
+	@echo
+	@echo "$(NAME).spec generated in $$PWD"
+	@echo
 
-spec: $(PKGNAME).spec
+spec: $(NAME).spec
 
 dist: cleandist export
 
@@ -55,8 +58,28 @@ cleandist:
 	rm -rf $(NAME)-$(VERSION) $(NAME)-$(VERSION).tar.xz
 
 export:
-	git archive --prefix $(NAME)-$(VERSION)/ HEAD | xz -9 > $(NAME)-$(VERSION).tar.xz
+	@$(RM) -rf SRPMS
+	@$(RM) -rf $(NAME)-$(VERSION)
+	@$(RM) -rf $(NAME)-$(VERSION).tar.xz*
+	@find -name '*~' -exec $(RM) {} \;
+	@echo
+	@echo "Cleaning complete"
+	@echo
+	git archive --prefix $(NAME)-$(VERSION)/ HEAD > $(NAME)-$(VERSION).tar
+	tar -rf $(NAME)-$(VERSION).tar $(NAME).spec
+	xz -9 $(NAME)-$(VERSION).tar
 
 srpm: spec export
-        $(RPMBUILD) "--define" "_topdir $(shell pwd)" -ts $(NAME)-$(VERSION).tar.xz --clean
-        @$(RM) -rf SOURCES SPECS BUILD BUILDROOT
+	$(RPMBUILD) "--define" "_topdir $(shell pwd)" -ts $(NAME)-$(VERSION).tar.xz --clean
+	@$(RM) -rf SOURCES SPECS BUILD BUILDROOT
+
+clean:
+	@$(RM) -f *.spec
+	@$(RM) -rf SRPMS RPMS SOURCES SPECS BUILD BUILDROOT
+	@$(RM) -rf $(NAME)-$(VERSION)
+	@$(RM) -rf $(NAME)-$(VERSION).tar.xz*
+	@find -name '*~' -exec $(RM) {} \;
+	@echo
+	@echo "Cleaning complete"
+	@echo
+

@@ -1,0 +1,71 @@
+[org.gnome.desktop.interface]
+## No accessibility by default, until we're 100% there's no regression
+toolkit-accessibility = false
+### For the theme, we stay with the defaults
+## Note: for non-GNOME sessions, the cursor theme is defined in /var/adm/fillup-templates/sysconfig.windowmanager-desktop-data-openSUSE from desktop-data-openSUSE
+# cursor-theme = ""
+## Note: gtk[23]-branding-%{branding_name} must contain the same defaults for icon and gtk, otherwise the theme will change when gnome-settings-daemon starts
+# icon-theme = ""
+#gtk-theme = "oxygen-gtk"
+
+[org.gnome.desktop.background]
+## Default wallpaper
+picture-uri = "@@WALLPAPER_URI@@"
+picture-options = "stretched"
+primary-color = "#258c06"
+secondary-color = "#258c06"
+
+[org.gnome.desktop.background.login]
+## Default wallpaper
+picture-uri = "@@WALLPAPER_URI@@"
+picture-options = "stretched"
+primary-color = "#258c06"
+secondary-color = "#258c06"
+
+[org.gnome.desktop.screensaver]
+## Default wallpaper
+picture-uri = "@@WALLPAPER_URI@@"
+picture-options = "stretched"
+primary-color = "#258c06"
+secondary-color = "#258c06"
+
+[org.gnome.login-screen]
+## Logo in the gdm login dialog
+# logo='/usr/share/icons/hicolor/scalable/apps/distributor.svg'
+
+[org.gnome.libgnomekbd.desktop]
+## Set keyboard layout global per session instead of per window
+#group-per-window = false
+
+[org.gnome.desktop.sound]
+## Make sure to have event sounds by default
+event-sounds = true
+
+[org.gnome.desktop.wm.preferences]
+## Audible bell is more annoying than useful
+audible-bell = false
+### For the theme, we stay with the defaults
+# titlebar-uses-system-font = false
+# titlebar-font = ""
+# theme = ""
+
+[org.gnome.settings-daemon.plugins.xsettings]
+## the PackageKit gtk+ module is too spammy, fdo#23917
+disabled-gtk-modules = [ "pk-gtk-module" ]
+
+[org.gnome.settings-daemon.plugins.media-keys]
+help = "XF86Help"
+
+[org.gnome.shell]
+## Default apps shown in the gnome-shell dash
+favorite-apps = [ 'epiphany.desktop', 'evolution.desktop', 'empathy.desktop', 'rhythmbox.desktop', 'shotwell.desktop', 'libreoffice-writer.desktop', 'nautilus.desktop', 'gnome-documents.desktop', 'mageia-drakconf.desktop' ]
+## Default extensions that are enabled
+#enabled-extensions = [ 'alternative-status-menu@gnome-shell-extensions.gnome.org' ]
+
+[org.gnome.gnome-panel.applet.window-list]
+## Display all workspaces in the gnome-panel window list applet
+#display-all-workspaces = true
+
+[org.freedesktop.Tracker.Miner.Files]
+## Disable indexing on removable media
+index-removable-devices = false
