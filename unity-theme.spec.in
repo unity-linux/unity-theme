@@ -74,7 +74,7 @@ Conflicts:      mageia-theme-Default < 6.0-1
 Transitional (empty) package.
 
 %prep
-%setup -q -n %{gitname}-%{version}
+%setup -q -n %{name}-%{version}
 cp -a %{SOURCE100} glib2-branding.gschema.override.in
 
 
