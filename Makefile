@@ -71,7 +71,7 @@ export:
 
 srpm: spec export
 	$(RPMBUILD) "--define" "_topdir $(shell pwd)" -ts $(NAME)-$(VERSION).tar.xz --clean
-	@$(RM) -rf SOURCES SPECS BUILD BUILDROOT
+	@$(RM) -rf SOURCES SPECS BUILD BUILDROOT RPMS
 
 clean:
 	@$(RM) -f *.spec
