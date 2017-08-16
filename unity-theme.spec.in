@@ -1,7 +1,7 @@
 %define theme   Default
 %define scriptdir %{_datadir}/bootsplash/scripts
 %define mga_bg  %{_datadir}/mga/backgrounds
-%define _vendor unity
+%define _vendor Unity
 
 Name:           unity-theme
 Version:        @THEMEVER@.@RELEASE@
