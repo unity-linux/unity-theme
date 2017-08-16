@@ -5,7 +5,7 @@ services:
 install: true
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_525138aa9eeb_key -iv $encrypted_525138aa9eeb_iv -in .stuff.tar.gz.enc -out stuff.tar.gz -d
+  - openssl aes-256-cbc -K $encrypted_b2c4e5c5e173_key -iv $encrypted_b2c4e5c5e173_iv -in .stuff.tar.gz.enc -out stuff.tar.gz -d
   - file stuff.tar.gz
   - tar xzvf stuff.tar.gz -C /tmp/
   - eval "$(ssh-agent -s)"
