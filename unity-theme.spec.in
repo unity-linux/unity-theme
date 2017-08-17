@@ -165,5 +165,3 @@ fi
 %files extra
 %{mga_bg}/%{_vendor}-%{theme}-{4,5}.jpg
 %{mga_bg}/Extra-Background*.jpg
-
-%files Default
