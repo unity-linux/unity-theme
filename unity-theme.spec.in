@@ -36,7 +36,6 @@ Obsoletes:      mageia-theme-kde-background < 6.0-1
 Provides:       mageia-theme-kde-background = %{version}-%{release}
 Obsoletes:      mageia-theme-gnome < 6.0-1
 Provides:       mageia-theme-gnome = %{version}-%{release}
-Conflicts:      plymouth < 0.9.2-7.mga6
 
 %description
 This package contains the %{_vendor} plymouth theme and desktop background
