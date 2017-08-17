@@ -5,7 +5,7 @@
 
 Name:           unity-theme
 Version:        @THEMEVER@.@RELEASE@
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{_vendor} theme for plymouth and desktop background
 Group:          Graphics/Utilities
 License:        GPL and CC BY-SA 3.0
@@ -26,15 +26,13 @@ Provides:       plymouth(system-theme)
 
 # (akien) Obsolete those for Mageia 6 when making mageia-theme monolithic
 # The split was not really useful, and making the spec very hard to read
-Obsoletes:      mageia-theme-common < 6.0-1
-Obsoletes:      mageia-theme-Default < 6.0-1
+Obsoletes:      mageia-theme-common
+Obsoletes:      mageia-theme-Default
 Provides:	mageia-theme
-Provides:       mageia-theme-Default = %{version}-%{release}
+Provides:	unity-theme
 # Transitional package to fix obsoletes mageia-theme-Default had
 Requires:       unity-theme-Default
-Obsoletes:      mageia-theme-kde-background < 6.0-1
 Provides:       mageia-theme-kde-background = %{version}-%{release}
-Obsoletes:      mageia-theme-gnome < 6.0-1
 Provides:       mageia-theme-gnome = %{version}-%{release}
 
 %description
@@ -47,10 +45,9 @@ The signature background was chosen among high quality submissions from the
 %package screensavers
 Summary:        %{_vendor} screensavers collection
 License:        CC BY-SA 3.0
-Obsoletes:      mageia-theme-screensaver < 6.0-1
-Obsoletes:      mageia-theme-Default-screensaver < 6.0-1
-Provides:       mageia-theme-screensaver = %{version}-%{release}
-Provides:       mageia-theme-Default-screensaver = %{version}-%{release}
+
+Provides:       unity-theme-screensaver = %{version}-%{release}
+Provides:       unity-theme-Default-screensaver = %{version}-%{release}
 
 %description screensavers
 This package contains the screensavers associated with the %{_vendor} theme.
@@ -64,13 +61,6 @@ Summary:        Additional backgrounds from %{_vendor} users
 %description extra
 This package contains extra backgrounds to supplement the default selection.
 Those images were other submissions to the %{_vendor} %{distro_release} artwork contest.
-
-%package Default
-Summary:        Transitional (empty) package
-Conflicts:      mageia-theme-Default < 6.0-1
-
-%description Default
-Transitional (empty) package.
 
 %prep
 %setup -q -n %{name}-%{version}
