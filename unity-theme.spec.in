@@ -5,7 +5,7 @@
 
 Name:           unity-theme
 Version:        @THEMEVER@.@RELEASE@
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{_vendor} theme for plymouth and desktop background
 Group:          Graphics/Utilities
 License:        GPL and CC BY-SA 3.0
@@ -31,7 +31,7 @@ Obsoletes:      mageia-theme-Default < 6.0-1
 Provides:	mageia-theme
 Provides:       mageia-theme-Default = %{version}-%{release}
 # Transitional package to fix obsoletes mageia-theme-Default had
-Requires:       mageia-theme-Default
+Requires:       unity-theme-Default
 Obsoletes:      mageia-theme-kde-background < 6.0-1
 Provides:       mageia-theme-kde-background = %{version}-%{release}
 Obsoletes:      mageia-theme-gnome < 6.0-1
