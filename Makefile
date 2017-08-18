@@ -3,6 +3,7 @@ NAME=unity-theme
 # Bump THEMEVER for new theme version in same release
 RELEASE=1
 THEMEVER=1
+DISTREL=6
 VERSION=$(RELEASE).$(THEMEVER)
 
 THEMES=Unity-Default
@@ -44,7 +45,8 @@ install:
 $(NAME).spec: $(NAME).spec.in
 	@$(CAT) $(NAME).spec.in | \
 		$(SED) -e 's,@THEMEVER@,$(THEMEVER),g' | \
-		$(SED) -e 's,@RELEASE@,$(RELEASE),g'  \
+		$(SED) -e 's,@RELEASE@,$(RELEASE),g' | \
+		$(SED) -e 's,@DISTREL@,$(DISTREL),g'  \
 			>$(NAME).spec
 	@echo
 	@echo "$(NAME).spec generated in $$PWD"
