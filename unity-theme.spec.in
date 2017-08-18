@@ -28,7 +28,6 @@ Provides:       plymouth(system-theme)
 # The split was not really useful, and making the spec very hard to read
 Obsoletes:      mageia-theme-common
 Obsoletes:      mageia-theme-Default
-Provides:	mageia-theme-Default
 Provides:	mageia-theme
 Provides:	unity-theme
 # Transitional package to fix obsoletes mageia-theme-Default had
