@@ -5,7 +5,7 @@
 
 Name:           unity-theme
 Version:        @THEMEVER@.@RELEASE@
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{_vendor} theme for plymouth and desktop background
 Group:          Graphics/Utilities
 License:        GPL and CC BY-SA 3.0
@@ -28,10 +28,10 @@ Provides:       plymouth(system-theme)
 # The split was not really useful, and making the spec very hard to read
 Obsoletes:      mageia-theme-common
 Obsoletes:      mageia-theme-Default
+Provides:	mageia-theme-Default
 Provides:	mageia-theme
 Provides:	unity-theme
 # Transitional package to fix obsoletes mageia-theme-Default had
-Requires:       unity-theme-Default
 Provides:       mageia-theme-kde-background = %{version}-%{release}
 Provides:       mageia-theme-gnome = %{version}-%{release}
 
