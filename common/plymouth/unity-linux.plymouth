@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Unity Linux
+Description=Unity Linux Default Theme
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/Unity-Default
+ScriptFile=/usr/share/plymouth/themes/Unity-Default/unity-linux.script

@@ -2,8 +2,8 @@ NAME=unity-theme
 # Bump RELEASE for new Mageia release
 # Bump THEMEVER for new theme version in same release
 RELEASE=1
-THEMEVER=1
-DISTREL=6
+THEMEVER=2
+DISTREL=1
 VERSION=$(RELEASE).$(THEMEVER)
 
 THEMES=Unity-Default
