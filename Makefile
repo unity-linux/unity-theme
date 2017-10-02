@@ -3,7 +3,7 @@ NAME=unity-theme
 # Bump THEMEVER for new theme version in same release
 THEMEVER=1
 RELEASE=3
-DISTREL=1
+DISTREL=2
 VERSION=$(THEMEVER).$(RELEASE)
 
 THEMES=Unity-Default
@@ -33,9 +33,16 @@ install:
 		install -m644 common/plymouth/*.png $(DESTDIR)$(sharedir)/plymouth/themes/$$t/; \
 		install -m644 $$t/plymouth/*.plymouth $(DESTDIR)$(sharedir)/plymouth/themes/$$t/; \
 		install -m644 $$t/plymouth/*.png $(DESTDIR)$(sharedir)/plymouth/themes/$$t/; \
+		install -d $(DESTDIR)$(sharedir)/plymouth/themes/$$t/dialog;  \
+		install -m644 $$t/plymouth/dialog/*.png $(DESTDIR)$(sharedir)/plymouth/themes/$$t/dialog/; \
 		install -m644 $$t/background/$$t-*.png $(DESTDIR)$(sharedir)/mga/backgrounds/; \
 		install -d $(DESTDIR)$(sharedir)/gfxboot/themes/$$t;  \
 		install -d $(DESTDIR)$(bootdir)/grub/themes/$$t;  \
+		install -d $(DESTDIR)$(bootdir)/grub/themes/$$t/icons;  \
+		install -m644 $$t/grub2/*.png $(DESTDIR)$(bootdir)/grub/themes/$$t/; \
+		install -m644 $$t/grub2/icons/*.png $(DESTDIR)$(bootdir)/grub/themes/$$t/icons/; \
+		install -m644 $$t/grub2/*.pf2 $(DESTDIR)$(bootdir)/grub/themes/$$t/; \
+		install -m644 $$t/grub2/*.txt $(DESTDIR)$(bootdir)/grub/themes/$$t/; \
 		install -m644 $$t/gfxboot/*.jpg $(DESTDIR)$(sharedir)/gfxboot/themes/$$t/; \
 	done
 
