@@ -54,6 +54,16 @@ This package contains the screensavers associated with the %{_vendor} theme.
 They are a collection of high-quality photographs under libre licenses
 taken by members of the %{_vendor} community.
 
+%package grub
+Summary:        %{_vendor} grub theme
+License:        CC BY-SA 3.0
+
+Provides:       unity-theme-grub = %{version}-%{release}
+Provides:       unity-theme-Default-grub = %{version}-%{release}
+
+%description grub
+This package contains the grub theme associated with the %{_vendor} theme.
+
 %package extra
 Summary:        Additional backgrounds from %{_vendor} users
 
@@ -160,6 +170,9 @@ fi
 %files screensavers
 %dir %{_datadir}/mga/screensaver
 %{_datadir}/mga/screensaver/*-*.jpg
+
+%files grub
+/boot/grub/themes/%{_vendor}-%{theme}/
 
 %files extra
 %{mga_bg}/%{_vendor}-%{theme}-{4,5}.jpg

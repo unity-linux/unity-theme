@@ -2,7 +2,7 @@ NAME=unity-theme
 # Bump RELEASE for new Mageia release
 # Bump THEMEVER for new theme version in same release
 THEMEVER=1
-RELEASE=2
+RELEASE=3
 DISTREL=1
 VERSION=$(THEMEVER).$(RELEASE)
 
@@ -11,6 +11,7 @@ THEMES=Unity-Default
 configdir=/etc
 libexecdir=/usr/libexec
 sharedir=/usr/share
+bootdir=/boot
 unitdir=/usr/lib/systemd/system
 RPMBUILD=$(shell which rpmbuild)
 CAT=$(shell which cat)
@@ -22,6 +23,7 @@ all:
 install:
 	mkdir -p $(DESTDIR)$(sharedir)/mga/screensaver
 	mkdir -p $(DESTDIR)$(sharedir)/mga/backgrounds
+	mkdir -p $(DESTDIR)$(bootdir)/grub/themes
 	install -m 644 common/screensaver/*.jpg $(DESTDIR)$(sharedir)/mga/screensaver
 	install -m 644 extra-backgrounds/*.jpg $(DESTDIR)$(sharedir)/mga/backgrounds
 	@for t in $(THEMES); do \
@@ -33,6 +35,7 @@ install:
 		install -m644 $$t/plymouth/*.png $(DESTDIR)$(sharedir)/plymouth/themes/$$t/; \
 		install -m644 $$t/background/$$t-*.png $(DESTDIR)$(sharedir)/mga/backgrounds/; \
 		install -d $(DESTDIR)$(sharedir)/gfxboot/themes/$$t;  \
+		install -d $(DESTDIR)$(bootdir)/grub/themes/$$t;  \
 		install -m644 $$t/gfxboot/*.jpg $(DESTDIR)$(sharedir)/gfxboot/themes/$$t/; \
 	done
 
