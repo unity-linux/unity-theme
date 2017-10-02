@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/unity-linux/unity-theme.svg?branch=master)](https://travis-ci.org/unity-linux/unity-theme)
+
 # About
 
 
@@ -16,6 +18,7 @@
     - Unity-Default/background/*
     - Unity-Default/gfxboot/*.jpg
     - Unity-Default/plymouth/
+    - Unity-Default/grub2/
 
 # GfxBoot specs
 
