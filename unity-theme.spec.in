@@ -139,7 +139,7 @@ else
   fi
   %{_sbindir}/plymouth-set-default-theme %{_vendor}-%{theme}
 fi
-%_post_service mga-bg-res
+#%_post_service mga-bg-res
 # plymouth-set-default-theme defaults to 4:3 on update so fix it
 %{_libexecdir}/mga-bg-res > /dev/null 2>&1
 
