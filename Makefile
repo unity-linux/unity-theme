@@ -3,7 +3,7 @@ NAME=unity-theme
 # Bump THEMEVER for new theme version in same release
 THEMEVER=1
 RELEASE=3
-DISTREL=4
+DISTREL=5
 VERSION=$(THEMEVER).$(RELEASE)
 
 THEMES=Unity-Default
@@ -23,7 +23,7 @@ all:
 install:
 	mkdir -p $(DESTDIR)$(sharedir)/mga/screensaver
 	mkdir -p $(DESTDIR)$(sharedir)/mga/backgrounds
-	mkdir -p $(DESTDIR)$(bootdir)/grub/themes
+	mkdir -p $(DESTDIR)$(bootdir)/grub2/themes
 	install -m 644 common/screensaver/*.jpg $(DESTDIR)$(sharedir)/mga/screensaver
 	install -m 644 extra-backgrounds/*.jpg $(DESTDIR)$(sharedir)/mga/backgrounds
 	@for t in $(THEMES); do \
@@ -37,12 +37,12 @@ install:
 		install -m644 $$t/plymouth/dialog/*.png $(DESTDIR)$(sharedir)/plymouth/themes/$$t/dialog/; \
 		install -m644 $$t/background/$$t-*.png $(DESTDIR)$(sharedir)/mga/backgrounds/; \
 		install -d $(DESTDIR)$(sharedir)/gfxboot/themes/$$t;  \
-		install -d $(DESTDIR)$(bootdir)/grub/themes/$$t;  \
-		install -d $(DESTDIR)$(bootdir)/grub/themes/$$t/icons;  \
-		install -m644 $$t/grub2/*.png $(DESTDIR)$(bootdir)/grub/themes/$$t/; \
-		install -m644 $$t/grub2/icons/*.png $(DESTDIR)$(bootdir)/grub/themes/$$t/icons/; \
-		install -m644 $$t/grub2/*.pf2 $(DESTDIR)$(bootdir)/grub/themes/$$t/; \
-		install -m644 $$t/grub2/*.txt $(DESTDIR)$(bootdir)/grub/themes/$$t/; \
+		install -d $(DESTDIR)$(bootdir)/grub2/themes/$$t;  \
+		install -d $(DESTDIR)$(bootdir)/grub2/themes/$$t/icons;  \
+		install -m644 $$t/grub2/*.png $(DESTDIR)$(bootdir)/grub2/themes/$$t/; \
+		install -m644 $$t/grub2/icons/*.png $(DESTDIR)$(bootdir)/grub2/themes/$$t/icons/; \
+		install -m644 $$t/grub2/*.pf2 $(DESTDIR)$(bootdir)/grub2/themes/$$t/; \
+		install -m644 $$t/grub2/*.txt $(DESTDIR)$(bootdir)/grub2/themes/$$t/; \
 		install -m644 $$t/gfxboot/*.jpg $(DESTDIR)$(sharedir)/gfxboot/themes/$$t/; \
 	done
 

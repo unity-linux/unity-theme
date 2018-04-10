@@ -172,7 +172,7 @@ fi
 %{_datadir}/mga/screensaver/*-*.jpg
 
 %files grub
-/boot/grub/themes/%{_vendor}-%{theme}/
+/boot/grub2/themes/%{_vendor}-%{theme}/
 
 %files extra
 %{mga_bg}/%{_vendor}-%{theme}-{4,5}.jpg
