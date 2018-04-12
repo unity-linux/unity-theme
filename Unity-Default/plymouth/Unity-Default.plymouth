@@ -5,4 +5,4 @@ ModuleName=script
 
 [script]
 ImageDir=/usr/share/plymouth/themes/Unity-Default
-ScriptFile=/usr/share/plymouth/themes/Unity-Default/unity-linux.script
+ScriptFile=/usr/share/plymouth/themes/Unity-Default/Unity-Default.script
