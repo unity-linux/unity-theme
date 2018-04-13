@@ -18,8 +18,12 @@ script:
 - docker run --privileged=true -d -v "$(pwd):/rpmbuild" -v "/dev:/dev" $DID tail -f /dev/null
 - export CID=$(docker ps -l | awk '{print $1}' | grep -v -m1 'CONTAINER')
 - echo $CID
-- docker exec $CID /bin/sh -c 'cd /rpmbuild && dnf install git -y && make srpm' --privileged=true
-- find ~/ -name *.src.rpm
+- docker exec $CID /bin/sh -c 'cd /rpmbuild && rpmbuilder bs'
+- find ./SRPMS -name *.src.rpm
+- find ./${MOCK_CONFIG} -name *.{RPM_ARCH}.rpm
+- find ./${MOCK_CONFIG} -name *.noarch.rpm
 after_success:
 - sudo -H pip install --upgrade pyOpenSSL ndg-httpsclient pyasn1 requests[security] jinja2 marshmallow copr-cli simplejson
-- if [ -f $(find ~/ -name *.src.rpm) ]; then copr-cli --config /tmp/stuff/.copr build jmiahman/Unity-Linux $(find ~/ -name *.src.rpm); fi
+- scp -o StrictHostKeyChecking=no $(find ./${MOCK_CONFIG} -name "*.rpm" -print) foobar2:rpm_staging/Unity-Linux/${RPM_ARCH}/
+- scp -o StrictHostKeyChecking=no $(find ./SRPMS -name "*.rpm" -print|grep -v 'src.rpm') foobar2:rpm_staging/Unity-Linux/src/
+- ssh -o StrictHostKeyChecking=no foobar2 'sh ~/bin/down_copr'
