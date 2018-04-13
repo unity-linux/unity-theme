@@ -18,7 +18,7 @@ script:
 - docker run --privileged=true -d -v "$(pwd):/rpmbuild" -v "/dev:/dev" $DID tail -f /dev/null
 - export CID=$(docker ps -l | awk '{print $1}' | grep -v -m1 'CONTAINER')
 - echo $CID
-- docker exec $CID /bin/sh -c 'cd /rpmbuild && make srpm && rpmbuilder bs'
+- docker exec $CID /bin/sh -c 'cd /rpmbuild && dnf -y install git && make srpm && rpmbuilder bs'
 - find ./SRPMS -name *.src.rpm
 - find ./${MOCK_CONFIG} -name *.{RPM_ARCH}.rpm
 - find ./${MOCK_CONFIG} -name *.noarch.rpm
