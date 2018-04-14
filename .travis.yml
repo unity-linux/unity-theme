@@ -24,8 +24,9 @@ script:
 - docker exec $CID /bin/sh -c 'dnf -y install git' --privileged=true
 - docker exec $CID /bin/sh -c 'cd /rpmbuild && make spec && make export' --privileged=true
 - docker exec $CID /bin/sh -c 'cd /rpmbuild && rpmbuilder bs' --privileged=true
+- RPM_ARCH=$(echo $MOCK_CONFIG | cut -d- -f3)
 - find ./${MOCK_CONFIG} -name *.src.rpm
-- find ./${MOCK_CONFIG} -name *.{RPM_ARCH}.rpm
+- find ./${MOCK_CONFIG} -name *.${RPM_ARCH}.rpm
 - find ./${MOCK_CONFIG} -name *.noarch.rpm
 after_success:
 - sudo -H pip install --upgrade pyOpenSSL ndg-httpsclient pyasn1 requests[security] jinja2 marshmallow copr-cli simplejson
