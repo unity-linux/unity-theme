@@ -21,12 +21,14 @@ script:
 - docker run --privileged=true -e MOCK_CONFIG=${MOCK_CONFIG} -d -v "$(pwd):/rpmbuild" -v "/dev:/dev" $DID tail -f /dev/null
 - export CID=$(docker ps -l | awk '{print $1}' | grep -v -m1 'CONTAINER')
 - echo $CID
-- docker exec $CID /bin/sh -c 'cd /rpmbuild && dnf -y install git && make spec && make export && rpmbuilder bs' --privileged=true
+- docker exec $CID /bin/sh -c 'dnf -y install git' --privileged=true
+- docker exec $CID /bin/sh -c 'cd /rpmbuild && make spec && make export' --privileged=true
+- docker exec $CID /bin/sh -c 'cd /rpmbuild && rpmbuilder bs' --privileged=true
 - find ./${MOCK_CONFIG} -name *.src.rpm
 - find ./${MOCK_CONFIG} -name *.{RPM_ARCH}.rpm
 - find ./${MOCK_CONFIG} -name *.noarch.rpm
 after_success:
 - sudo -H pip install --upgrade pyOpenSSL ndg-httpsclient pyasn1 requests[security] jinja2 marshmallow copr-cli simplejson
-- scp -o StrictHostKeyChecking=no $(find ./${MOCK_CONFIG} -name "*.rpm" -print) foobar2:rpm_staging/Unity-Linux/${RPM_ARCH}/
-- scp -o StrictHostKeyChecking=no $(find ./SRPMS -name "*.rpm" -print|grep -v 'src.rpm') foobar2:rpm_staging/Unity-Linux/src/
+- scp -o StrictHostKeyChecking=no $(find ./${MOCK_CONFIG} -name "*.rpm" -print|grep -v 'src.rpm') foobar2:rpm_staging/Unity-Linux/${RPM_ARCH}/
+- scp -o StrictHostKeyChecking=no $(find ./${MOCK_CONFIG} -name "*.rpm" -print|grep 'src.rpm') foobar2:rpm_staging/Unity-Linux/src/
 - ssh -o StrictHostKeyChecking=no foobar2 'sh ~/bin/down_copr'
