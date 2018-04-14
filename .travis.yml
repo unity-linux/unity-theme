@@ -12,6 +12,9 @@ before_install:
 - ssh-add /tmp/stuff/.deploy
 - mv /tmp/stuff/.host ~/.ssh/config
 - docker pull jmiahman/mageia-rpmbuilder
+env:
+- MOCK_CONFIG="mageia-cauldron-i586"
+- MOCK_CONFIG="mageia-cauldron-x86_64"
 script:
 - export DID=$(docker image ls | grep -m1 mageia-rpmbuilder | awk '{print $3}')
 - echo $DID
