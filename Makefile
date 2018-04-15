@@ -3,7 +3,7 @@ NAME=unity-theme
 # Bump THEMEVER for new theme version in same release
 THEMEVER=1
 RELEASE=3
-DISTREL=6
+DISTREL=7
 VERSION=$(THEMEVER).$(RELEASE)
 
 THEMES=Unity-Default
@@ -23,8 +23,12 @@ all:
 install:
 	mkdir -p $(DESTDIR)$(sharedir)/mga/screensaver
 	mkdir -p $(DESTDIR)$(sharedir)/mga/backgrounds
+	mkdir -p $(DESTDIR)$(sharedir)/icons/hicolor/256x256/apps/
+	mkdir -p $(DESTDIR)$(sharedir)/icons/hicolor/scalable/apps/
 	mkdir -p $(DESTDIR)$(bootdir)/grub2/themes
 	install -m 644 common/screensaver/*.jpg $(DESTDIR)$(sharedir)/mga/screensaver
+	install -m 644 common/icons/*.png $(DESTDIR)$(sharedir)/icons/hicolor/256x256/apps/
+	install -m 644 common/icons/*.svg $(DESTDIR)$(sharedir)/icons/hicolor/scalable/apps/
 	install -m 644 extra-backgrounds/*.jpg $(DESTDIR)$(sharedir)/mga/backgrounds
 	@for t in $(THEMES); do \
 		set -x; set -e; \
