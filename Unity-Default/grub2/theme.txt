@@ -17,7 +17,7 @@ terminal-font: "DejaVu Mono 14"
 
 # title
 + hbox {
-		top = 48
+		top = 258
 		left = 50%-182
 		width = 366
 		+ label {text = "Select Operating System" color = "#f2f2f2" font = "Noto Sans Regular 32" align = "center"}
@@ -25,7 +25,7 @@ terminal-font: "DejaVu Mono 14"
 
 # Show the boot menu
 + boot_menu {
-		top = 29%
+		top = 40%
 		left = 50%-275
 		width = 550
 		height = 42%
@@ -50,7 +50,7 @@ terminal-font: "DejaVu Mono 14"
 # Show a styled horizontal progress bar
 + progress_bar {
 		id = "__timeout__"
-		top = 72%
+		top = 82%
 		left = 50%-134
 		width = 268
 		height = 24
@@ -65,7 +65,7 @@ terminal-font: "DejaVu Mono 14"
 # Show text progress bar
 + progress_bar {
 		id = "__timeout__"
-		top = 75%
+		top = 78%
 		left = 50%-174
 		height = 24
 		show_text = true
