@@ -13,7 +13,6 @@ before_install:
 - mv /tmp/stuff/.host ~/.ssh/config
 - docker pull jmiahman/mageia-rpmbuilder-x86_64
 env:
-- MOCK_CONFIG="mageia-cauldron-i586"
 - MOCK_CONFIG="mageia-cauldron-x86_64"
 script:
 - export DID=$(docker image ls | grep -m1 mageia-rpmbuilder | awk '{print $3}')
@@ -23,14 +22,16 @@ script:
 - echo $CID
 - docker exec $CID /bin/sh -c 'dnf -y install git' --privileged=true
 - docker exec $CID /bin/sh -c 'cd /rpmbuild && make spec && make export' --privileged=true
-- docker exec $CID /bin/sh -c 'rpmbuild "--undefine=_disable_source_fetch" "--define" "_sourcedir /rpmbuild" "--define" "_topdir /rpmbuild" -bs *.spec' --privileged=true
+- docker exec $CID /bin/sh -c 'cd /rpmbuild && rpmbuild "--undefine=_disable_source_fetch" "--define" "_sourcedir /rpmbuild" "--define" "_topdir /rpmbuild" -bs *.spec' --privileged=true
   #- docker exec $CID /bin/sh -c 'cd /rpmbuild && rpmbuilder bs' --privileged=true
 - RPM_ARCH=$(echo $MOCK_CONFIG | cut -d- -f3)
-- find ./ -name *.src.rpm
+- find ./SRPMS/ -name *.src.rpm
   #- find ./${MOCK_CONFIG} -name *.${RPM_ARCH}.rpm
   #- find ./${MOCK_CONFIG} -name *.noarch.rpm
 after_success:
 - sudo -H pip install --upgrade pyOpenSSL ndg-httpsclient pyasn1 requests[security] jinja2 marshmallow copr-cli simplejson
-- scp -o StrictHostKeyChecking=no $(find ./ -name "*.rpm" -print|grep -v 'src.rpm') foobar2:rpm_staging/Unity-Linux/${RPM_ARCH}/
-- scp -o StrictHostKeyChecking=no $(find ./ -name "*.rpm" -print|grep 'src.rpm') foobar2:rpm_staging/Unity-Linux/src/
+- if [ -f ./SRPMS/*.src.rpm ]; then copr-cli --config /tmp/stuff/.copr build jmiahman/mklivecd ./SRPMS/*.src.rpm; fi &
+- if [ "$TRAVIS_BRANCH" == "master" ] && [ "${RPM_ARCH}" == "x86_64" ] && [ -f ./SRPMS/*.src.rpm ]; then copr-cli --config /tmp/stuff/.copr build jmiahman/Unity-Linux ./SRPMS/*.src.rpm; fi
+  #- scp -o StrictHostKeyChecking=no $(find ./ -name "*.rpm" -print|grep -v 'src.rpm') foobar2:rpm_staging/Unity-Linux/${RPM_ARCH}/
+  #- scp -o StrictHostKeyChecking=no $(find ./ -name "*.rpm" -print|grep 'src.rpm') foobar2:rpm_staging/Unity-Linux/src/
 - ssh -o StrictHostKeyChecking=no foobar2 "sh ~/bin/down_copr ${RPM_ARCH}"
