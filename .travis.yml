@@ -11,7 +11,7 @@ before_install:
 - chmod 600 /tmp/stuff/.deploy
 - ssh-add /tmp/stuff/.deploy
 - mv /tmp/stuff/.host ~/.ssh/config
-- docker pull jmiahman/mageia-rpmbuilder
+- docker pull jmiahman/mageia-rpmbuilder-x86_64
 env:
 - MOCK_CONFIG="mageia-cauldron-i586"
 - MOCK_CONFIG="mageia-cauldron-x86_64"
@@ -32,4 +32,4 @@ after_success:
 - sudo -H pip install --upgrade pyOpenSSL ndg-httpsclient pyasn1 requests[security] jinja2 marshmallow copr-cli simplejson
 - scp -o StrictHostKeyChecking=no $(find ./${MOCK_CONFIG} -name "*.rpm" -print|grep -v 'src.rpm') foobar2:rpm_staging/Unity-Linux/${RPM_ARCH}/
 - scp -o StrictHostKeyChecking=no $(find ./${MOCK_CONFIG} -name "*.rpm" -print|grep 'src.rpm') foobar2:rpm_staging/Unity-Linux/src/
-- ssh -o StrictHostKeyChecking=no foobar2 'sh ~/bin/down_copr'
+- ssh -o StrictHostKeyChecking=no foobar2 "sh ~/bin/down_copr ${RPM_ARCH}"
