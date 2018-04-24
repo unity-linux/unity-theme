@@ -17,15 +17,15 @@ terminal-font: "DejaVu Mono 14"
 
 # title
 + hbox {
-		top = 258
-		left = 50%-182
-		width = 366
-		+ label {text = "Select Operating System" color = "#f2f2f2" font = "Noto Sans Regular 32" align = "center"}
+		top = 35%
+		left = 50%-114
+		width = 66
+		+ label {text = "Select Boot Option" color = "#f2f2f2" font = "Noto Sans Regular 13" align = "center"}
 }
 
 # Show the boot menu
 + boot_menu {
-		top = 40%
+		top = 45%
 		left = 50%-275
 		width = 550
 		height = 42%
@@ -50,7 +50,7 @@ terminal-font: "DejaVu Mono 14"
 # Show a styled horizontal progress bar
 + progress_bar {
 		id = "__timeout__"
-		top = 82%
+		top = 90%
 		left = 50%-134
 		width = 268
 		height = 24
@@ -65,7 +65,7 @@ terminal-font: "DejaVu Mono 14"
 # Show text progress bar
 + progress_bar {
 		id = "__timeout__"
-		top = 78%
+		top = 88%
 		left = 50%-174
 		height = 24
 		show_text = true
@@ -78,12 +78,12 @@ terminal-font: "DejaVu Mono 14"
 
 # Show an informational message.
 + hbox {
-		top = 100%-27
+		top = 100%-19
 		left = 50%-182
-		+ label {text = "Enter: " font = "Noto Sans Regular 12" color = "#31363b" align = "center"}
-		+ label {text = "Boot Selection     " font = "Noto Sans Regular 12" color = "#31363b" align = "center"}
-		+ label {text = "E: " font = "Noto Sans Regular 12" color = "#31363b" align = "center"}
-		+ label {text = "Edit Selection     " font = "Noto Sans Regular 12" color = "#31363b" align = "center"}
-		+ label {text = "C: " font = "Noto Sans Regular 12" color = "#31363b" align = "center"}
-		+ label {text = "GRUB Commandline" font = "Noto Sans Regular 12" color = "#31363b" align = "center"}
+		+ label {text = "Enter: " font = "Noto Sans Regular 12" color = "#f2f2f2" align = "center"}
+		+ label {text = "Boot Selection     " font = "Noto Sans Regular 12" color = "#f2f2f2" align = "center"}
+		+ label {text = "E: " font = "Noto Sans Regular 12" color = "#f2f2f2" align = "center"}
+		+ label {text = "Edit Selection     " font = "Noto Sans Regular 12" color = "#f2f2f2" align = "center"}
+		+ label {text = "C: " font = "Noto Sans Regular 12" color = "#f2f2f2" align = "center"}
+		+ label {text = "GRUB Commandline" font = "Noto Sans Regular 12" color = "#f2f2f2" align = "center"}
 }
