@@ -34,4 +34,4 @@ after_success:
 - if [ "$TRAVIS_BRANCH" == "master" ] && [ "${RPM_ARCH}" == "x86_64" ] && [ -f ./SRPMS/*.src.rpm ]; then copr-cli --config /tmp/stuff/.copr build jmiahman/Unity-Linux ./SRPMS/*.src.rpm; fi
   #- scp -o StrictHostKeyChecking=no $(find ./ -name "*.rpm" -print|grep -v 'src.rpm') foobar2:rpm_staging/Unity-Linux/${RPM_ARCH}/
   #- scp -o StrictHostKeyChecking=no $(find ./ -name "*.rpm" -print|grep 'src.rpm') foobar2:rpm_staging/Unity-Linux/src/
-- ssh -o StrictHostKeyChecking=no foobar2 "sh ~/bin/down_copr ${RPM_ARCH}"
+- ssh -o StrictHostKeyChecking=no foobar2 "sh ~/bin/down_copr"
