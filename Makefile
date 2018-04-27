@@ -3,7 +3,7 @@ NAME=unity-theme
 # Bump THEMEVER for new theme version in same release
 THEMEVER=1
 RELEASE=3
-DISTREL=10
+DISTREL=11
 VERSION=$(THEMEVER).$(RELEASE)
 
 THEMES=Unity-Default
