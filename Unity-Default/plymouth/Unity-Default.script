@@ -48,12 +48,20 @@ anim.sprite.SetY((Window.GetY() + Window.GetHeight() - RotatedImage(0).GetHeight
 anim.angle = 0;
 anim.index = 0;
 
-logo.image = Image("logo.png");
-logo.sprite = Sprite(logo.image);
-logo.sprite.SetX(Window.GetWidth() / 2 - logo.image.GetWidth() / 2);
-logo.sprite.SetY(Window.GetHeight() / 2 - logo.image.GetHeight() / 2);
-logo.sprite.SetOpacity(1);
-logo.sprite.SetZ(10000);
+//logo.image = Image("logo.png");
+//logo.sprite = Sprite(logo.image);
+//logo.sprite.SetX(Window.GetWidth() / 2 - logo.image.GetWidth() / 2);
+//logo.sprite.SetY(Window.GetHeight() / 2 - logo.image.GetHeight() / 2);
+//logo.sprite.SetOpacity(1);
+//logo.sprite.SetZ(10000);
+// No logo for now text instead
+circtxt = Image.Text ("Booting System");
+circtxt.sprite = Sprite(circtxt);
+circtxt.sprite.SetX(Window.GetWidth() / 2 - logo.image.GetWidth() / 2);
+circtxt.sprite.SetY(Window.GetHeight() / 2 - logo.image.GetHeight() / 2);
+circtxt.sprite.SetOpacity(1);
+circtxt.sprite.SetZ(10000);
+
 
 background.image = background.original_image.Scale(Window.GetMaxWidth() , Window.GetMaxHeight());
 background.sprite = SpriteNew();
