@@ -3,7 +3,7 @@ NAME=unity-theme
 # Bump THEMEVER for new theme version in same release
 THEMEVER=1
 RELEASE=3
-DISTREL=11
+DISTREL=12
 VERSION=$(THEMEVER).$(RELEASE)
 
 THEMES=Unity-Default
@@ -33,8 +33,8 @@ install:
 	@for t in $(THEMES); do \
 		set -x; set -e; \
 		install -d $(DESTDIR)$(sharedir)/plymouth/themes/$$t; \
-		install -m644 common/plymouth/*.script $(DESTDIR)$(sharedir)/plymouth/themes/$$t/; \
-		install -m644 common/plymouth/*.png $(DESTDIR)$(sharedir)/plymouth/themes/$$t/; \
+		install -m644 $$t/plymouth/*.script $(DESTDIR)$(sharedir)/plymouth/themes/$$t/; \
+		install -m644 $$t/plymouth/*.png $(DESTDIR)$(sharedir)/plymouth/themes/$$t/; \
 		install -m644 $$t/plymouth/*.plymouth $(DESTDIR)$(sharedir)/plymouth/themes/$$t/; \
 		install -m644 $$t/plymouth/*.png $(DESTDIR)$(sharedir)/plymouth/themes/$$t/; \
 		install -d $(DESTDIR)$(sharedir)/plymouth/themes/$$t/dialog;  \
