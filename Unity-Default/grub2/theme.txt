@@ -18,9 +18,9 @@ terminal-font: "DejaVu Mono 14"
 # title
 + hbox {
 		top = 35%
-		left = 50%-114
+		left = 43%
 		width = 66
-		+ label {text = "Select Boot Option" color = "#f2f2f2" font = "Noto Sans Regular 13" align = "center"}
+		+ label {text = "Select Boot Option" color = "#f2f2f2" align = "center"}
 }
 
 # Show the boot menu
